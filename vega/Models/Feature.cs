@@ -7,22 +7,12 @@ using System.Threading.Tasks;
 
 namespace vega.Models
 {
-    public class Make
+    public class Feature
     {
         public int Id { get; set; }
 
         [Required]
         [StringLength(255)]
-        public String Name { get; set; }
-        public ICollection<Model> Models { get; set; }
-
-
-
-        public Make()
-        {
-            Models = new Collection<Model>();
-
-        }
-
+        public string Name { get; set; }
     }
 }
