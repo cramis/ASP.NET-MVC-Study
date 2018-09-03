@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace vega.Models
 {
-    [Table("VihicleFeatures")]
-    public class VihicleFeature
+    [Table("VehicleFeatures")]
+    public class VehicleFeature
     {
         public int VehicleId { get; set; }
         public int FeatureId { get; set; }
