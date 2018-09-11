@@ -11,18 +11,23 @@ module.exports = (env) => {
         resolve: { extensions: [ '.js' ] },
         entry: {
             vendor: [
-                'bootstrap',
-                'bootstrap/dist/css/bootstrap.css',
+                "bootstrap/dist/css/bootstrap.min.css",
+                "bootstrap-vue",
                 'event-source-polyfill',
                 'isomorphic-fetch',
-                'jquery',
                 'vue',
-                'vue-router'
+                'vue-router',
+                "nprogress/nprogress.css"
             ],
         },
         module: {
             rules: [
-                { test: /\.css(\?|$)/, use: extractCSS.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' }) },
+                {
+                    test: /\.css(\?|$)/,
+                    use: extractCSS.extract({
+                      use: isDevBuild ? "css-loader" : "css-loader?minimize"
+                    })
+                },
                 { test: /\.(png|woff|woff2|eot|ttf|svg)(\?|$)/, use: 'url-loader?limit=100000' }
             ]
         },
