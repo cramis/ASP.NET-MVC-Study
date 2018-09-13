@@ -12,9 +12,9 @@
                 'active': brands.length === 0 }" @click="clearBrands">All</div>
                 </b-col>
                 <b-col cols="6" v-for="item in filters.brands" :key="item">
-                <div :class="{ 'filter-item': true, 'active': 
-                brands.indexOf(item) > -1 }" @click="filterBrand(item)">
-                {{ item }}</div>
+                    <div :class="{ 'filter-item': true, 'active': brands.indexOf(item) > -1 }" @click="filterBrand(item)">
+                        {{ item }}
+                    </div>
                 </b-col>
             </b-row>
         </filter-accordion>

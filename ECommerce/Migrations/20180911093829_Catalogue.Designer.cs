@@ -250,7 +250,7 @@ namespace ECommerce.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Capacity")
+                    b.Property<int>("Capacity")
                         .IsRequired();
 
                     b.HasKey("Id");

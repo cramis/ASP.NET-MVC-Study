@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Features.Filters
 {
+    [Route("api/[controller]")]
     public class FiltersController : Controller
     {
         private readonly EcommerceContext _db;
