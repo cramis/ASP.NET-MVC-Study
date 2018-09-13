@@ -1,11 +1,13 @@
 <template>
   <div class="page">
-      <product-details :product="product" />
+    <product-details v-if="product" :product="product" />
   </div>
 </template>
 
 <script>
+import axios from "axios";
 import ProductDetails from "../components/products/Details.vue";
+
 
 
 // import NProgress from "nprogress";
@@ -21,15 +23,9 @@ export default {
     };
   },
   beforeRouteEnter(to, from, next) {
-      fetch(`/api/products/${to.params.slug}`)
-        .then(response => {
-          return response.json();
-        })
-        .then(product => {
-          next(vm => {
-            vm.setData(product);
-          });
-        });
+      axios.get(`/api/products/${to.params.slug}`).then(response => {
+        next(vm => vm.setData(response.data));
+      });
   },
   methods: {
     setData(product) {
