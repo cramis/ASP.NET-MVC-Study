@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ECommerce.Data;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Features.Products
@@ -76,7 +77,40 @@ namespace ECommerce.Features.Products
     [HttpGet("{slug}")]
     public async Task<IActionResult> Get(string slug)
     {
-      var product = await _db.Products.SingleOrDefaultAsync(x => x.Slug == slug);
+      var product =await _db.Products.Select(x =>new ProductDetailsViewModel
+      {
+        Id=x.Id,
+        Slug=x.Slug,
+        Name=x.Name,
+        ShortDescription=x.ShortDescription,
+        Description=x.Description,
+        Price=x.ProductVariants.OrderBy(v =>v.Price).First().Price,
+        Thumbnail=x.Thumbnail,
+        Images=x.Images.Select(i =>i.Url),
+        Features=x.ProductFeatures.Select(f =>f.Feature.Name),
+        Colours=x.ProductVariants.Select(v =>new SelectListItem
+        {
+          Value=v.ColourId.ToString(),
+          Text=v.Colour.Name
+        }).Distinct(),
+        Storage=x.ProductVariants.Select(v =>new SelectListItem
+        {
+          Value=v.StorageId.ToString(),
+          Text=v.Storage.Capacity.ToString() +"GB"
+        }).Distinct(),
+        Variants=x.ProductVariants.Select(v =>new ProductVariantViewModel
+        {
+          ProductId=x.Id,
+          Name=x.Name,
+          Thumbnail=x.Thumbnail,
+          ColourId=v.ColourId,
+          Colour=v.Colour.Name,
+          StorageId=v.StorageId,
+          Capacity=$"{v.Storage.Capacity}GB",
+          Price=v.Price
+        })
+      })
+      .FirstOrDefaultAsync(x =>x.Slug==slug);
 
       if (product == null)
         return NotFound();
