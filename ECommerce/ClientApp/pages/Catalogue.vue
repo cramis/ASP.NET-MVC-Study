@@ -7,6 +7,7 @@
       <b-col cols="9">
         <h3>Products</h3>
         <div class="clearfix">
+          <search-bar class="search" />
           <product-sort />
         </div>
         <product-list v-if="products.length" :products="sortedProducts" />
@@ -21,13 +22,15 @@ import axios from "axios";
 import ProductList from "../components/catalogue/ProductList.vue";
 import Filters from "../components/catalogue/Filters.vue";
 import ProductSort from "../components/catalogue/ProductSort.vue";
+import SearchBar from "../components/catalogue/SearchBar.vue";
 
 export default {
   name: "catalogue",
   components: {
     Filters,
     ProductList,
-    ProductSort
+    ProductSort,
+    SearchBar
   },
   data() {
     return {
@@ -95,3 +98,14 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.flex {
+  display: flex;
+  flex-direction: row;
+
+  .search {
+    flex: 1;
+  }
+}
+</style>
