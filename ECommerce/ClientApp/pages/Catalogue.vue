@@ -5,7 +5,11 @@
         <filters v-if="filters.brands.length" :filters="filters" />
       </b-col>
       <b-col cols="9">
-        <product-list :products="products" />
+        <h3>Products</h3>
+        <div class="clearfix">
+          <product-sort />
+        </div>
+        <product-list v-if="products.length" :products="sortedProducts" />
       </b-col>
     </b-row>
   </b-container>
@@ -16,12 +20,14 @@ import axios from "axios";
 
 import ProductList from "../components/catalogue/ProductList.vue";
 import Filters from "../components/catalogue/Filters.vue";
+import ProductSort from "../components/catalogue/ProductSort.vue";
 
 export default {
   name: "catalogue",
   components: {
     Filters,
-    ProductList
+    ProductList,
+    ProductSort
   },
   data() {
     return {
@@ -52,6 +58,34 @@ export default {
       this.products = response.data;
       next();
     });
+  },
+  computed: {
+    sort() {
+      return this.$route.query.sort || 0;
+    },
+    sortedProducts() {
+      switch (this.sort) {
+        case 1:
+          return this.products.sort((a, b) => {
+            return b.price > a.price;
+          });
+          break;
+        case 2:
+          return this.products.sort((a, b) => {
+            return a.name > b.name;
+          });
+          break;
+        case 3:
+          return this.products.sort((a, b) => {
+            return b.name > a.name;
+          });
+          break;
+        default:
+          return this.products.sort((a, b) => {
+            return a.price > b.price;
+          });
+      }
+    }
   },
   methods: {
   setData(products, filters) {
