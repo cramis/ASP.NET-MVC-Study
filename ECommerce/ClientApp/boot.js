@@ -1,7 +1,10 @@
+
 import Vue from "vue";
 import VueRouter from "vue-router";
 import BootstrapVue from 'bootstrap-vue';
 import NProgress from "nprogress";
+import store from "./store";
+
 
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
@@ -30,5 +33,6 @@ router.afterEach((to, from) => {
 new Vue({
   el: "#app-root",
   router: router,
+  store,
   render: h => h(require("./components/App.vue"))
 });

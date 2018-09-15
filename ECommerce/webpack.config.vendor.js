@@ -16,6 +16,7 @@ module.exports = (env) => {
                 'event-source-polyfill',
                 'axios',
                 'vue',
+                "vuex",
                 'vue-router',
                 "nprogress/nprogress.css"
             ],
