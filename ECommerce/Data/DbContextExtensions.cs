@@ -10,10 +10,12 @@ namespace ECommerce.Data
   public static class DbContextExtensions
   {
     public static UserManager<AppUser> UserManager { get; set; }
+    public static RoleManager<AppRole> RoleManager { get; set; }
 
     public static void EnsureSeeded(this EcommerceContext context)
     {
       AddUsers(context);
+      AddRoles(context);
       AddColoursFeaturesAndStorage(context);
       AddOperatingSystemsAndBrands(context);
       AddProducts(context);
@@ -21,7 +23,7 @@ namespace ECommerce.Data
 
     private static void AddUsers(EcommerceContext context)
     {
-      if (UserManager.FindByEmailAsync("stu@ratcliffe.io").GetAwaiter().GetResult() == null)
+      if (UserManager.FindByEmailAsync("cramis@test.com").GetAwaiter().GetResult() == null)
       {
         var user = new AppUser
         {
@@ -34,6 +36,26 @@ namespace ECommerce.Data
         };
 
         UserManager.CreateAsync(user, "Password1*").GetAwaiter().GetResult();
+      }
+
+      var admin = UserManager.FindByEmailAsync("cramis@test.com").GetAwaiter().GetResult();
+
+      if (UserManager.IsInRoleAsync(admin, "Admin").GetAwaiter().GetResult() == false)
+      {
+        UserManager.AddToRoleAsync(admin, "Admin");
+      }
+    }
+
+    private static void AddRoles(EcommerceContext context)
+    {
+      if (RoleManager.RoleExistsAsync("Admin").GetAwaiter().GetResult() == false)
+      {
+        RoleManager.CreateAsync(new AppRole("Admin")).GetAwaiter().GetResult();
+      }
+
+      if (RoleManager.RoleExistsAsync("Customer").GetAwaiter().GetResult() == false)
+      {
+        RoleManager.CreateAsync(new AppRole("Customer")).GetAwaiter().GetResult();
       }
     }
 

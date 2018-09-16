@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using ECommerce.Data;
 using ECommerce.Data.Entities;
 using ECommerce.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -13,6 +15,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace ECommerce
 {
@@ -30,10 +33,39 @@ namespace ECommerce
         {
             services.AddDbContext<EcommerceContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             
-
+            // Identity를 이용한 토큰 방식 인증 추가
             services.AddIdentity<AppUser, AppRole>()
                 .AddEntityFrameworkStores<EcommerceContext>()
                 .AddDefaultTokenProviders();
+
+            // JWT 인증기능 추가
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options =>
+            {
+                options.RequireHttpsMetadata = false;
+                options.SaveToken = true;
+                options.ClaimsIssuer = Configuration["Authentication:JwtIssuer"];
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                ValidateIssuer = true,
+                ValidIssuer = Configuration["Authentication:JwtIssuer"],
+
+                ValidateAudience = true,
+                ValidAudience = Configuration["Authentication:JwtAudience"],
+
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Authentication:JwtKey"])),
+
+                RequireExpirationTime = true,
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
+                };
+            });
 
             services.AddMvc();
 
@@ -43,7 +75,10 @@ namespace ECommerce
                 FeatureLocationExpander());
             });
 
-            DbContextExtensions.UserManager = services.BuildServiceProvider().GetService<UserManager<AppUser>>();
+            //DbContextExtensions.UserManager = services.BuildServiceProvider().GetService<UserManager<AppUser>>();
+            var provider = services.BuildServiceProvider();
+            DbContextExtensions.UserManager = provider.GetService<UserManager<AppUser>>();
+            DbContextExtensions.RoleManager = provider.GetService<RoleManager<AppRole>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -64,6 +99,8 @@ namespace ECommerce
 
             app.UseStaticFiles();
 
+            app.UseAuthentication();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -74,6 +111,7 @@ namespace ECommerce
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
         }
     }
 }
