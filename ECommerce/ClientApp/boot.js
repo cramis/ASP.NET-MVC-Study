@@ -9,6 +9,11 @@ import store from "./store";
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
 
+// filters
+import { currency } from"./filters";
+
+Vue.filter("currency", currency);
+
 //import page components
 import Catalogue from "./pages/Catalogue.vue";
 import Product from "./pages/Product.vue";
