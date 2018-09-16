@@ -5,12 +5,15 @@
         <filters v-if="filters.brands.length" :filters="filters" />
       </b-col>
       <b-col cols="9">
-        <h3>Products</h3>
+        <div class="products">
+        <h1>Products</h1>
+        <hr>
         <div class="clearfix">
           <search-bar class="search" />
           <product-sort />
         </div>
         <product-list v-if="products.length" :products="sortedProducts" />
+        </div>
       </b-col>
     </b-row>
   </b-container>
@@ -100,12 +103,20 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.products {
+    margin: 10px 0;
+    padding: 10px;
+}
 .flex {
   display: flex;
   flex-direction: row;
 
-  .search {
-    flex: 1;
-  }
+  
 }
+
+.search {
+    flex: 1;
+    padding: 10px;
+    margin: 10px 0;
+  }
 </style>
