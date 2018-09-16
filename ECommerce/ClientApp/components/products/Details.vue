@@ -94,6 +94,8 @@ export default {
     },
     addProductToCart() {
       this.$store.dispatch("addProductToCart", this.variant);
+
+      this.$toastr("success", "Product added to cart successfully.");
     }
   }
 };

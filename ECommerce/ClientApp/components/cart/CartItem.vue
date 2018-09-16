@@ -47,10 +47,14 @@ export default {
   methods: {
     removeProductFromCart() {
         this.$store.dispatch("removeProductFromCart", this.item);
+
+        this.$toastr("success", this.item.name + " 상품이 카트 내에서 삭제되었습니다.");
     },
     setProductQuantity(quantity) {
         const payload= { product:this.item, quantity:parseInt(quantity) };
         this.$store.dispatch("setProductQuantity", payload);
+
+        this.$toastr("success", this.item.name + " 상품의 수량변경되었습니다.");
     }
   }
 };

@@ -6,6 +6,7 @@ import NProgress from "nprogress";
 import store from "./store";
 
 
+
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
 
@@ -13,6 +14,16 @@ Vue.use(VueRouter);
 import { currency } from"./filters";
 
 Vue.filter("currency", currency);
+
+// VueToastr
+
+import VueToastr from "@deveodk/vue-toastr";
+import "@deveodk/vue-toastr/dist/@deveodk/vue-toastr.css";
+
+Vue.use(VueToastr, {
+  defaultPosition:"toast-top-right"
+});
+
 
 //import page components
 import Catalogue from "./pages/Catalogue.vue";
