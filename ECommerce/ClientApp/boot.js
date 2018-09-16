@@ -31,6 +31,20 @@ import Product from "./pages/Product.vue";
 import Cart from "./pages/Cart.vue";
 import Checkout from "./pages/Checkout.vue";
 
+import axios from "axios";
+
+// store에 인증값이 있다면 axios header에 인증 값을 넣어놓음
+const initialStore = localStorage.getItem("store");
+
+if (initialStore) {
+  store.commit("initialise", JSON.parse(initialStore));
+  if (store.getters.isAuthenticated) {
+    axios.defaults.headers.common["Authorization"] = `Bearer ${
+      store.state.auth.access_token
+    }`;
+  }
+}
+
 const routes = [
   { path: "/products", component: Catalogue },
   { path: "/products/:slug", component: Product },

@@ -1,12 +1,7 @@
 
 // 초기화
-export const initialise = state => {
-
-  // local storage에서 값을 가져옴
-  const store = localStorage.getItem("store");
-  if (store) {
-    Object.assign(state, JSON.parse(store));
-  }
+export const initialise = (state, payload) => {
+  Object.assign(state, payload);
 };
 
 

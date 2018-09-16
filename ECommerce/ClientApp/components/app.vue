@@ -40,9 +40,6 @@ export default {
     showAuthModal() {
       return this.$store.state.showAuthModal;
     }
-  },
-  beforeCreate() {
-    this.$store.commit("initialise");
   }
 };
 </script>
