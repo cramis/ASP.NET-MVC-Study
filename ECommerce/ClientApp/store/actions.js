@@ -51,7 +51,6 @@ export const setProductQuantity= ({ state, commit }, payload) => {
 export const login = ({ commit }, payload) => {
   return new Promise((resolve, reject) => {
     commit("loginRequest");
-    console.log("loginRequest", payload);
     axios
       .post("/api/token", payload)
       .then(response => {
