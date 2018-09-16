@@ -1,4 +1,8 @@
+
+// 초기화
 export const initialise = state => {
+
+  // local storage에서 값을 가져옴
   const store = localStorage.getItem("store");
   if (store) {
     Object.assign(state, JSON.parse(store));
@@ -30,3 +34,44 @@ export const setProductQuantity = (state, payload) => {
   state.cart.splice(payload.index, 1, cartItem);
 };
 
+
+// 로그인 모달 보여주기/감추기
+export const showAuthModal = state => {
+  state.showAuthModal=true;
+};
+
+export const hideAuthModal = state => {
+  state.showAuthModal=false;
+};
+
+// 로그인시 loading 여부 표시
+export const loginRequest = state => {
+  state.loading = true;
+};
+
+export const loginSuccess = (state, payload) => {
+  state.auth=payload;
+  state.loading = false;
+};
+
+export const loginError = state => {
+  state.loading = false;
+};
+
+// 회원가입시 loading 여부 표시
+export const registerRequest = state => {
+  state.loading = true;
+};
+
+export const registerSuccess = state => {
+  state.loading = false;
+};
+
+export const registerError = state => {
+  state.loading = false;
+};
+
+// 로그아웃시...
+export const logout = state=> {
+  state.auth = null;
+};
