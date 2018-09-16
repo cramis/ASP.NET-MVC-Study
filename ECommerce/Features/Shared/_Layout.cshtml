@@ -11,12 +11,15 @@
     <environment exclude="Development">
         <link rel="stylesheet" href="~/dist/site.css" asp-append-version="true" />
     </environment>
+
+    
     
 </head>
 <body>
     @RenderBody()
 
     <script src="~/dist/vendor.js" asp-append-version="true"></script>
+    <script src="https://js.stripe.com/v3/"></script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

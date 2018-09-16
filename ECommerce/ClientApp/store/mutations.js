@@ -22,6 +22,10 @@ export const removeProductFromCart = (state, index) => {
   state.cart.splice(index, 1);
 };
 
+export const clearCartItems=state=> {
+  state.cart= [];
+};
+
 export const setProductQuantity = (state, payload) => {
   let cartItem = Object.assign({}, state.cart[payload.index]);
   cartItem.quantity = payload.quantity;

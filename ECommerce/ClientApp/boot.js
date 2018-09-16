@@ -24,6 +24,10 @@ Vue.use(VueToastr, {
   defaultPosition:"toast-top-right"
 });
 
+import VeeValidate from "vee-validate";
+
+Vue.use(VeeValidate);
+
 
 //import page components
 import Catalogue from "./pages/Catalogue.vue";
