@@ -27,7 +27,12 @@ Vue.use(VueToastr, {
 
 import VeeValidate from "vee-validate";
 
+//plugins
+import "./helpers/validation";
+
 Vue.use(VeeValidate);
+
+
 
 
 //import page components
