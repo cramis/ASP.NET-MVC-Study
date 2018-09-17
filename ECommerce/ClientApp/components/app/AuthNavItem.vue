@@ -3,7 +3,7 @@
     <template slot="button-content">
       <i class="fas fa-user"></i>
     </template> 
-    <b-dropdown-item to="/account">
+    <b-dropdown-item v-if="isCustomer" to="/account">
       <i class="fas fa-user"></i>
       My Account
     </b-dropdown-item>
@@ -24,6 +24,9 @@ export default {
   computed: {
     isAuthenticated() {
       return this.$store.getters.isAuthenticated;
+    },
+    isCustomer() {
+      return this.$store.getters.isInRole("Customer");
     }
   },
   methods: {

@@ -37,6 +37,13 @@ import Cart from "./pages/Cart.vue";
 import Checkout from "./pages/Checkout.vue";
 import Account from"./pages/Account.vue";
 
+//import admin pages
+import AdminIndex from "./pages/admin/Index.vue";
+import AdminOrders from "./pages/admin/Orders.vue";
+import AdminProducts from "./pages/admin/Products.vue";
+import AdminCreateProduct from "./pages/admin/CreateProduct.vue";
+
+
 import axios from "axios";
 
 // store에 인증값이 있다면 axios header에 인증 값을 넣어놓음
@@ -57,26 +64,26 @@ const routes = [
   { path: "/cart", component: Cart, meta: { requiresAuth: true, role: "Customer" } },
   { path: "/checkout", component: Checkout, meta: { requiresAuth: true, role: "Customer" } },
   { path: "/account", component:Account, meta: { requiresAuth: true, role: "Customer" }},
-  // {
-  //   path: "/admin",
-  //   component: AdminIndex,
-  //   meta: { requiresAuth: true, role: "Admin" },
-  //   redirect: "/admin/orders",
-  //   children: [
-  //     {
-  //       path: "orders",
-  //       component: AdminOrders
-  //     },
-  //     {
-  //       path: "products",
-  //       component: AdminProducts
-  //     },
-  //     {
-  //       path: "products/create",
-  //       component: AdminCreateProduct
-  //     }
-  //   ]
-  // },
+  {
+    path: "/admin",
+    component: AdminIndex,
+    meta: { requiresAuth: true, role: "Admin" },
+    redirect: "/admin/orders",
+    children: [
+      {
+        path: "orders",
+        component: AdminOrders
+      },
+      {
+        path: "products",
+        component: AdminProducts
+      },
+      {
+        path: "products/create",
+        component: AdminCreateProduct
+      }
+    ]
+  },
   { path: "*", redirect: "/products" }
 ];
 
