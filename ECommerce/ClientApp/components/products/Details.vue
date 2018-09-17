@@ -96,13 +96,6 @@ export default {
       required: true
     }
   },
-  computed: {
-    variant() {
-      return this.product.variants.find(
-        v=>v.colourId==this.colour && v.storageId==this.capacity
-      );
-    }
-  },
   created() {
     // this.colour=this.product.colours[0].value;
     // this.capacity=this.product.storage[0].value;

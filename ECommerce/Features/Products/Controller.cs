@@ -175,7 +175,7 @@ namespace ECommerce.Features.Products
         if (colour == null)
           colour = new Colour { Name = variant.Colour };
 
-        var capacity = Convert.ToInt32(variant.Storage.Substring(0, variant.Storage.IndexOf("GB")));
+        var capacity = Convert.ToInt32(variant.Storage);
         var storage = await _db.Storage.FirstOrDefaultAsync(x => x.Capacity == capacity);
 
         if (storage == null)

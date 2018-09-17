@@ -190,6 +190,7 @@ export default {
 
       this.$validator.validateAll().then(result => {
         if (result && !this.variantsError) {
+          console.log(this.product);
           axios
             .post("/api/products", this.product)
             .then(response => {
