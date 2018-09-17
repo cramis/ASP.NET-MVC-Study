@@ -35,7 +35,10 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout").then(() => {
-        if (this.$route.meta.requiresAuth) {
+        // if (this.$route.meta.requiresAuth) {
+        //   this.$router.push("/");
+        // }
+        if (this.$route.matched.some(route=>route.meta.requiresAuth)) {
           this.$router.push("/");
         }
       });

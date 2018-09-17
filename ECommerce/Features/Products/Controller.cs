@@ -101,7 +101,10 @@ namespace ECommerce.Features.Products
           Value=v.StorageId.ToString(),
           Text=v.Storage.Capacity.ToString() +"GB"
         }).Distinct(),
-        Variants=x.ProductVariants.Select(v =>new ProductVariantViewModel
+        Variants=x.ProductVariants
+        // .OrderBy(v =>v.Colour.Name)
+        // .ThenBy(v =>v.Storage.Capacity)
+        .Select(v =>new ProductVariantViewModel
         {
           ProductId=x.Id,
           Name=x.Name,
