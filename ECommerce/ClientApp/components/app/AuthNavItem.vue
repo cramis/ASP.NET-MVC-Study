@@ -2,7 +2,11 @@
   <b-nav-item-dropdown v-if="isAuthenticated" right>
     <template slot="button-content">
       <i class="fas fa-user"></i>
-    </template>
+    </template> 
+    <b-dropdown-item to="/account">
+      <i class="fas fa-user"></i>
+      My Account
+    </b-dropdown-item>
     <b-dropdown-item @click="logout">
       <i class="fas fa-sign-out-alt"></i>
       Logout

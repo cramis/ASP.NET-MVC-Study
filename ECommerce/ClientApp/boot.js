@@ -11,9 +11,10 @@ Vue.use(BootstrapVue);
 Vue.use(VueRouter);
 
 // filters
-import { currency } from"./filters";
+import { currency, date } from"./filters";
 
 Vue.filter("currency", currency);
+Vue.filter("date", date);
 
 // VueToastr
 
@@ -34,6 +35,7 @@ import Catalogue from "./pages/Catalogue.vue";
 import Product from "./pages/Product.vue";
 import Cart from "./pages/Cart.vue";
 import Checkout from "./pages/Checkout.vue";
+import Account from"./pages/Account.vue";
 
 import axios from "axios";
 
@@ -53,7 +55,8 @@ const routes = [
   { path: "/products", component: Catalogue },
   { path: "/products/:slug", component: Product },
   { path: "/cart", component: Cart },
-  { path: "/checkout", component: Checkout, meta:{ requiresAuth: true } },
+  { path: "/checkout", component: Checkout, meta: { requiresAuth: true } },
+  { path: "/account", component:Account, meta: { requiresAuth:true } },
   { path: "*", redirect: "/products" }
 ];
 
