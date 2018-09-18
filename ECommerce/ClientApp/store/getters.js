@@ -11,12 +11,16 @@ export const shoppingCartItemCount = state => {
 };
 
 // 로그인 여부
+// export const isAuthenticated = state => {
+//     return (
+//       state.auth !== null &&
+//       state.auth.access_token !== null &&
+//       new Date(state.auth.access_token_expiration) > new Date()
+//     );
+// };
+
 export const isAuthenticated = state => {
-    return (
-      state.auth !== null &&
-      state.auth.access_token !== null &&
-      new Date(state.auth.access_token_expiration) > new Date()
-    );
+  return state.auth !== null && state.auth.access_token !== null;
 };
 
 export const isInRole= (state, getters) => role=> {
