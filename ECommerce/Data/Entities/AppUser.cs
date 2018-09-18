@@ -9,6 +9,9 @@ namespace ECommerce.Data.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        // 새로 발급 토큰
+        public string RefreshToken { get; set; }
+
         [NotMapped]
         public string FullName
         {

@@ -13,7 +13,7 @@
         label="Capacity"
         name="capacity" 
         :items="storage" 
-        v-validate="'required|min:3'" 
+        v-validate="'required'" 
         :error="errors.first('capacity')"
         v-model="capacity" />
 
